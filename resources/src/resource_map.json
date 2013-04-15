@@ -1,0 +1,16 @@
+{
+	"friendlyVersion": "0.1",
+	"versionDefName": "SCHEDULE",
+	"media": [
+		{
+			"type": "png",
+			"defName": "IMAGE_MENU_ICON",
+			"file": "images/menu-icon.png"
+		},
+		{
+			"type": "raw",
+			"defName": "EVENT_LIST",
+			"file": "event-list.bin"
+		}
+	]
+}
