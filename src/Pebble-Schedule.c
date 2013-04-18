@@ -98,7 +98,7 @@ void redraw(PblTm *tick_time) {
 	} else if(current_type == DURING) {
 		remaining = events[current].end_time - current_time_minutes - 1;
 		
-		text_layer_set_text(&text_layer, get_bit_from_mask(events[current].flags, 7) ? "LEFT IN" : "LEFT FOR");
+		text_layer_set_text(&text_layer, get_bit_from_mask(events[current].flags, 7) ? "LEFT IN" : "LEFT TO");
 
 		text_layer_set_text(&name_layer, events[current].name);
 	} else {
@@ -112,10 +112,12 @@ void redraw(PblTm *tick_time) {
 	
 	itoa(remaining, time_buffer, 3);
 	
-	char seconds_buffer[4];
-	itoa(59 - tick_time->tm_sec, seconds_buffer, 3);
-	strncat(time_buffer, ":", 3);
-	strncat(time_buffer, seconds_buffer, 3);
+	if(remaining < 1000){ // 4-digit minute counts don't fit
+		char seconds_buffer[4];
+		itoa(59 - tick_time->tm_sec, seconds_buffer, 3);
+		strncat(time_buffer, ":", 3);
+		strncat(time_buffer, seconds_buffer, 3);
+	}
 	
 	if(remaining == 0 && tick_time->tm_sec == 59){
 		vibes_long_pulse();
